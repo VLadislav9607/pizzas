@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
+
+import './scss/app.scss';
 
 function App() {
+
+  // mongoose.connect(
+  //   'mongodb+srv://vlad960706:<vlad2x>@pizzadata.oeo7pec.mongodb.net/?retryWrites=true&w=majority'
+  // ).then(() => console.log('DB ok'))
+  //   .catch((error) => console.log('DB error', error));
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="wrapper">
+      <Header />
+      <div class="content">
+        <div class="container">
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/cart' element={<Cart />} />
+
+          </Routes>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
