@@ -45,7 +45,6 @@ button {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     gap: 50px 20px;
 
     @media (max-width: 1400px) {
@@ -372,4 +371,12 @@ button {
       font-size: 18px;
     }
   }
+}
+
+
+.pagitation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }

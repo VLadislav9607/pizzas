@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'
+import Pagination from '@mui/material/Pagination';
 
 import MainContext from '../context';
 import Categories from '../components/Categories';
@@ -13,6 +14,8 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState();
   const [sortType, setSortType] = React.useState('rating');
+  const [pageAction, setPageAction] = React.useState(1);
+
 
   const { searchPizza, setSearchPizza } = React.useContext(MainContext)
 
@@ -25,7 +28,7 @@ const Home = () => {
 
         const order = sortType.includes('↑') ? 'asc' : 'desc';
 
-        const dataPizzas = await axios.get(`https://63f255ebf28929a9df58a99e.mockapi.io/dataPizzas?${searchPizza && `search=${categoryId}`}${categoryId > 0 && `category=${categoryId}`}&sortBy=${sortType.replace('↑', '')}&order=${order}`);
+        const dataPizzas = await axios.get(`https://63f255ebf28929a9df58a99e.mockapi.io/dataPizzas?page=${pageAction}&limit=4&${searchPizza && `search=${categoryId}`}${categoryId > 0 && `category=${categoryId}`}&sortBy=${sortType.replace('↑', '')}&order=${order}`);
 
         setData(dataPizzas.data);
         setIsLoaded(false);
@@ -35,7 +38,7 @@ const Home = () => {
         console.error(error)
       }
     })();
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, pageAction]);
 
 
   const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
@@ -54,6 +57,13 @@ const Home = () => {
         {isLoaded
           ? skeleton
           : pizzasRender}
+      </div>
+      <div className='pagitation'>
+        <Pagination 
+        count={3} 
+        page={pageAction}
+        onChange={(_, numPage) => setPageAction(numPage)}
+        color="secondary" />
       </div>
     </>
   )
