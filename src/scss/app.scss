@@ -8,6 +8,12 @@ body {
   background-color: $background;
 }
 
+button {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
 .wrapper {
   width: calc(122vw - 100px);
   height: 100%;
@@ -116,19 +122,15 @@ body {
   .content__title {
     display: flex;
     align-items: center;
-    font-size: 32px;
 
-    svg {
-      position: relative;
-      top: -2px;
-      width: 30px;
-      height: 30px;
+    h2 {
+      font-size: 32px;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
       margin-right: 10px;
-
-      path {
-        stroke: $black;
-        stroke-width: 1.9;
-      }
     }
 
   }
@@ -341,7 +343,7 @@ body {
 
     h2 {
       font-size: 32px;
-      margin-bottom: 10px;
+      margin: 20px 0px;
     }
 
     p {
@@ -358,7 +360,7 @@ body {
 
     img {
       display: block;
-      width: 300px;
+      width: 200px;
       margin: 45px auto 60px;
     }
 

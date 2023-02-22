@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 545px) {
+    @media (max-width: 776px) {
       justify-content: center;
       flex-direction: column;
       gap: 20px;
@@ -40,11 +40,5 @@
     p {
       color: #7b7b7b;
     }
-  }
-
-  &__search {
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 5px 20px;
   }
 }

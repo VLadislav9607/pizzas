@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+
+import Search from './Search';
+
 import logoIcon from '../assets/img/pizza-logo.svg'
-import Search from './/Search';
+
 
 
 const Header = () => {
@@ -13,15 +16,14 @@ const Header = () => {
                   <img width="38" src={logoIcon} alt="Pizza logo" />
                </Link>
                <Link to='/'>
-                  <h1>React Pizza</h1>
-                  <p>самая вкусная пицца во вселенной</p>
+                  <h1>Pizza KHM</h1>
+                  <p>Найкраща піца Хмельницького</p>
                </Link>
                <Search />
-
             </div>
             <div class="header__cart">
                <Link to='/cart' href="/cart.html" class="button button--cart">
-                  <span>520 ₽</span>
+                  <span>0 грн</span>
                   <div class="button__delimiter"></div>
                   <svg
                      width="18"
@@ -52,7 +54,7 @@ const Header = () => {
                         stroke-linejoin="round"
                      />
                   </svg>
-                  <span>3</span>
+                  <span></span>
                </Link>
             </div>
          </div>
