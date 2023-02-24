@@ -12,7 +12,7 @@ const Categories = ({ onChangeCategory }) => {
   }
 
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         {categoriesList.map((item, index) => {
           return <li
