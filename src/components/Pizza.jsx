@@ -10,20 +10,20 @@ const Pizza = ({ pizza }) => {
   const typesPizza = ['Тонка', 'Традиційна']
 
   return (
-    <div class="pizza-block">
+    <div className="pizza-block">
       <img
-        class="pizza-block__image"
+        className="pizza-block__image"
         src={imageUrl}
         alt={title}
       />
-      <h4 class="pizza-block__title">{title}</h4>
-      <div class="pizza-block__selector">
+      <h4 className="pizza-block__title">{title}</h4>
+      <div className="pizza-block__selector">
         <ul>
           {types.map((typeIndex) => {
             return <li
               key={typeIndex}
               onClick={() => setActiveTypes(typeIndex)}
-              class={activeTypes === typeIndex && 'active'}
+              className={activeTypes === typeIndex && 'active'}
             >
               {typesPizza[typeIndex]}
             </li>
@@ -35,16 +35,16 @@ const Pizza = ({ pizza }) => {
             return <li
               key={size}
               onClick={() => setActiveSize(index)}
-              class={activeSize === index && 'active'}
+              className={activeSize === index && 'active'}
             >
               {size}
             </li>
 
           })}            </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price">від {price} грн</div>
-        <div class="button button--outline button--add">
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price">від {price} грн</div>
+        <div className="button button--outline button--add">
           <svg
             width="12"
             height="12"

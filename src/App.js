@@ -15,6 +15,7 @@ function App() {
   // ).then(() => console.log('DB ok'))
   //   .catch((error) => console.log('DB error', error));
 
+
   const [searchPizza, setSearchPizza] = React.useState('');
   const [cartData, setCartData] = React.useState([]);
 
@@ -25,10 +26,10 @@ function App() {
         searchPizza,
         setSearchPizza,
       }}>
-        <div class="wrapper">
+        <div className="wrapper">
           <Header />
-          <div class="content">
-            <div class="container">
+          <div className="content">
+            <div className="container">
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/cart' element={<Cart cartData={cartData}/>} />
