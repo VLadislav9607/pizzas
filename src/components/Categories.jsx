@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveIndex } from '../redux/slices/filterSlice'
+
 
 const Categories = ({ onChangeCategory }) => {
 
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const dispatch = useDispatch();
+  const { activeIndex } = useSelector(state => state.filter);
 
   const categoriesList = ["Всі", "М'ясні", "Вегетаріанські", "Гриль", "Гострі", "Закриті",];
 
   const onCategory = (index) => {
-    setActiveIndex(index);
+    dispatch(setActiveIndex(index));
     onChangeCategory(index);
   }
 
@@ -20,7 +24,7 @@ const Categories = ({ onChangeCategory }) => {
               onCategory(index);
             }}
             key={item}
-            className={activeIndex === index && 'active'}
+            className={activeIndex === index ? 'active' : ''}
           >
             {item}
           </li>

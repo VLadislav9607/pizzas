@@ -373,6 +373,24 @@ button {
   }
 }
 
+.error__body {
+  margin: 0 auto;
+  width: 560px;
+  text-align: center;
+
+  h2 {
+    font-size: 32px;
+    margin: 20px 0px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 145.4%;
+    letter-spacing: 0.01em;
+    color: #777777;
+  }
+}
+
 
 .pagitation {
   display: flex;

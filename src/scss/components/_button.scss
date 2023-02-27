@@ -4,7 +4,7 @@
   display: inline-block;
   background-color: $orange;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 10px 15px;
   min-width: 100px;
   text-align: center;
   cursor: pointer;
@@ -97,7 +97,7 @@
 
   &--add {
     svg {
-      margin-right: 2px;
+      margin-right: 10px;
     }
 
     span {
