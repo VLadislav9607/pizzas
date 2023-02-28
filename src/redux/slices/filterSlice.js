@@ -5,6 +5,7 @@ const initialState = {
   sortType: { name: 'Популярності ↓', forFetch: 'rating' },
   pageAction: 1,
   activeIndex: 0,
+  searchPizza: ''
 }
 
 export const filterSlice = createSlice({
@@ -18,7 +19,7 @@ export const filterSlice = createSlice({
       state.sortType = action.payload;
     },
     setPageAction(state, action) {
-      state.pageAction = action.payload
+      state.pageAction = action.payload;
     },
     setFilters(state, action) {
       state.sortType = action.payload.sortType;
@@ -28,11 +29,16 @@ export const filterSlice = createSlice({
 
     },
     setActiveIndex(state, action) {
-      state.activeIndex = action.payload
+      state.activeIndex = action.payload;
     },
+    setSearchPizza(state, action) {
+      state.searchPizza = action.payload;
+    }
   }
-})
+});
 
-export const { setCategoryId, setSortChecked, setPageAction, setFilters, setActiveIndex } = filterSlice.actions
+export const selectFilter = (state) => state.filter;
+
+export const { setCategoryId, setSortChecked, setPageAction, setFilters, setActiveIndex, setSearchPizza } = filterSlice.actions
 
 export default filterSlice.reducer

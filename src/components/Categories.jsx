@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveIndex } from '../redux/slices/filterSlice'
+import { selectFilter, setActiveIndex } from '../redux/slices/filterSlice'
 
 
 const Categories = ({ onChangeCategory }) => {
 
   const dispatch = useDispatch();
-  const { activeIndex } = useSelector(state => state.filter);
+  const { activeIndex } = useSelector(selectFilter);
 
   const categoriesList = ["Всі", "М'ясні", "Вегетаріанські", "Гриль", "Гострі", "Закриті",];
 

@@ -6,8 +6,7 @@ import { removeProduct, addProduct, onClickMinus } from '../redux/slices/cartSli
 
 export const CartItem = ({ id, imageUrl, title, price, type, size, count }) => {
   const dispatch = useDispatch();
-
-
+  
   return (
     <>
       <div key={id} className="cart__item">
