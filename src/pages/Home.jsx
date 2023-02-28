@@ -1,54 +1,78 @@
 import React from 'react';
-import axios from 'axios';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
+import errorImg from '../assets/img/error.gif';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setCategoryId } from '../redux/slices/filterSlice'
+import { setCategoryId, setPageAction, setFilters, selectFilter } from '../redux/slices/filterSlice'
+import { fetchPizzas } from '../redux/slices/pizzasSlice'
 
-import MainContext from '../context';
 import Categories from '../components/Categories';
 import Pizza from '../components/Pizza';
-import Sort from '../components/Sort';
+import Sort, { sortData } from '../components/Sort';
 import Skeleton from '../components/Skeleton';
+import Found404 from './Found404';
 
 const Home = () => {
-
-  const dispatch = useDispatch()
-  const { categoryId, sortType } = useSelector(state => state.filter);
-
-  const [data, setData] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(true);
-  const [pageAction, setPageAction] = React.useState(1);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { categoryId, sortType, pageAction, searchPizza } = useSelector(selectFilter);
+  const { pizzas, status } = useSelector(state => state.pizzas);
+  const isMounted = React.useRef(false);
 
 
-  const { searchPizza, setSearchPizza } = React.useContext(MainContext)
-
-
+  //Якщо був перший рендер і URL змінилась
   React.useEffect(() => {
-    setIsLoaded(true);
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        forFetch: sortType.forFetch,
+        categoryId,
+        pageAction,
+      });
 
-    (async () => {
-      try {
+      navigate(`?${queryString}`)
+    }
 
-        const order = sortType.forFetch.includes('↑') ? 'asc' : 'desc';
+    isMounted.current = true;
 
-        const dataPizzas = await axios.get(`https://63f255ebf28929a9df58a99e.mockapi.io/dataPizzas?page=${pageAction}&limit=4&${searchPizza && `search=${categoryId}`}${categoryId > 0 && `category=${categoryId}`}&sortBy=${sortType.forFetch.replace('↑', '')}&order=${order}`);
-
-        setData(dataPizzas.data);
-        setIsLoaded(false);
-
-      } catch (error) {
-        alert('Помилка сервера');
-        console.error(error)
-      }
-    })();
   }, [categoryId, sortType.forFetch, pageAction]);
 
+  //Якщо був перший рендер, то перевіряємо URL і зберігаємо в редаксі
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = sortData.find(obj => obj.forFetch === params.forFetch);
+      dispatch(
+        setFilters({
+          ...params,
+          sortType: sort,
+          activeIndex: params.categoryId,
+
+        }),
+      );
+
+    }
+  }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      const order = sortType.forFetch.includes('↑') ? 'asc' : 'desc';
+      const category = categoryId > 0 ? `category=${categoryId}` : '';
+      const search = searchPizza ? `search=${categoryId}` : '';
+      const sort = sortType.forFetch.replace('↑', '');
+
+      dispatch(fetchPizzas({ order, category, search, sort, pageAction }));
+    })();
+
+  }, [categoryId, sortType.forFetch, pageAction]);
 
   const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
-  const pizzasRender = data
-    .filter(obj => obj.title.toLowerCase().includes(searchPizza))
-    .map(item => <Pizza key={item.id} pizza={item} />);
+  const pizzasRender = pizzas.filter(obj => obj.title.toLowerCase().includes(searchPizza)).map(pizza => <Pizza key={pizza.id} {...pizza} />);
+
+  if (status === 'error') {
+    return <Found404 />;
+  }
 
   return (
     <>
@@ -58,16 +82,15 @@ const Home = () => {
       </div>
       <h2 className="content__title">Всі піци</h2>
       <div className="content__items">
-        {isLoaded
-          ? skeleton
-          : pizzasRender}
+        {status === 'loading' ? skeleton : pizzasRender}
       </div>
       <div className='pagitation'>
         <Pagination
           count={3}
           page={pageAction}
-          onChange={(_, numPage) => setPageAction(numPage)}
-          color="secondary" />
+          onChange={(_, numPage) => dispatch(setPageAction(numPage))}
+          color="secondary"
+        />
       </div>
     </>
   )

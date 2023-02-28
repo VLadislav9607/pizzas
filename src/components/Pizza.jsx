@@ -1,13 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct, selectCartProductDyId } from '../redux/slices/cartSlice';
 
-const Pizza = ({ pizza }) => {
+const Pizza = ({ id, imageUrl, title, types, sizes, price }) => {
 
-  const { imageUrl, title, types, sizes, price } = pizza;
+  const dispatch = useDispatch();
+  const pizzaCount = useSelector(selectCartProductDyId(id))
 
   const [activeTypes, setActiveTypes] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
-  const typesPizza = ['Тонка', 'Традиційна']
+  const typesPizza = ['Тонка', 'Традиційна'];
+
+  const onClickAdd = () => {
+    const pizza = {
+      id,
+      imageUrl,
+      title,
+      price,
+      type: typesPizza[activeTypes],
+      size: sizes[activeSize]
+    };
+
+    dispatch(addProduct(pizza));
+  }
 
   return (
     <div className="pizza-block">
@@ -23,11 +39,10 @@ const Pizza = ({ pizza }) => {
             return <li
               key={typeIndex}
               onClick={() => setActiveTypes(typeIndex)}
-              className={activeTypes === typeIndex && 'active'}
+              className={activeTypes === typeIndex ? 'active' : ''}
             >
               {typesPizza[typeIndex]}
             </li>
-
           })}
         </ul>
         <ul>
@@ -35,16 +50,18 @@ const Pizza = ({ pizza }) => {
             return <li
               key={size}
               onClick={() => setActiveSize(index)}
-              className={activeSize === index && 'active'}
+              className={activeSize === index ? 'active' : ''}
             >
               {size}
             </li>
-
-          })}            </ul>
+          })}
+        </ul>
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">від {price} грн</div>
-        <div className="button button--outline button--add">
+        <button
+          className="button button--outline button--add"
+          onClick={() => onClickAdd()}>
           <svg
             width="12"
             height="12"
@@ -58,8 +75,8 @@ const Pizza = ({ pizza }) => {
             />
           </svg>
           <span>Добавити</span>
-          <i>2</i>
-        </div>
+          {pizzaCount && <i>{pizzaCount.count}</i>}
+        </button>
       </div>
     </div>
   )
