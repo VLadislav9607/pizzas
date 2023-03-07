@@ -31,12 +31,16 @@ button {
   }
 
   &__title {
-    margin: 50px 0;
     font-size: 50px;
 
     @media (max-width: 1100px) {
       text-align: center;
+    }
 
+    @media(max-width: 480px) {
+      h2 {
+        display: none;
+      }
     }
   }
 

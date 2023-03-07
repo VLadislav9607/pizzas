@@ -4,6 +4,10 @@
   max-width: calc(100vw - 400px);
   margin: 0px auto;
 
+  @media(max-width: 1200px) {
+    max-width: 100vw;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
@@ -36,6 +40,10 @@
       margin-left: 7px;
       color: #b6b6b6;
       font-size: 18px;
+
+      @media(max-width: 480px) {
+        font-size: 14px;
+      }
     }
 
     span,
@@ -57,22 +65,53 @@
     }
   }
 
+  &__items {
+    width: 80%;
+    margin: 0 auto;
+
+    @media(max-width: 1200px) {
+      width: 100%;
+    }
+  }
+
   &__item {
     display: flex;
-    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
 
+    @media(max-width: 780px) {
+      justify-content: center;
+      padding-top: 0px;
+    }
+
+
     &-img {
       display: flex;
       align-items: center;
-      margin-right: 15px;
-      width: 10%;
+      flex-basis: 300px;
+
+      @media(max-width: 630px) {
+        flex-basis: 200px;
+      }
+
+      @media(max-width: 480px) {
+        flex-basis: 150px;
+      }
 
       img {
         width: 80px;
         height: 80px;
+        margin-right: 15px;
+
+        @media(max-width: 550px) {
+          width: 60px;
+          height: 60px;
+          margin-right: 5px;
+        }
       }
     }
 
@@ -80,18 +119,26 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 40%;
 
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+
+        @media(max-width: 550px) {
+          font-size: 16px;
+          line-height: 16px;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+
+        @media(max-width: 550px) {
+          font-size: 12px;
+        }
       }
     }
 
@@ -99,7 +146,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 13%;
+      column-gap: 20px;
 
       &-minus {
         svg {
@@ -112,18 +159,25 @@
       b {
         font-size: 22px;
       }
+
+      @media(max-width: 550px) {
+        column-gap: 10px;
+      }
     }
 
     &-price {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
 
       b {
         font-weight: bold;
         font-size: 22px;
         letter-spacing: 0.01em;
+
+        @media(max-width: 550px) {
+          font-size: 15px;
+        }
       }
     }
 
@@ -131,7 +185,6 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -168,6 +221,10 @@
       display: flex;
       justify-content: space-between;
 
+      @media(max-width: 550px) {
+        flex-direction: column;
+      }
+
       span {
         font-size: 22px;
 
@@ -182,14 +239,18 @@
     &-buttons {
       display: flex;
       justify-content: space-between;
+      column-gap: 10px;
       margin-top: 40px;
+
+      @media(max-width: 450px) {
+        flex-direction: column-reverse;
+      }
 
       .go-back-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 210px;
-
         border-color: darken($color: $gray-line, $amount: 10);
 
         span {
