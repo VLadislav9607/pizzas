@@ -1,14 +1,13 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, selectCart } from '../redux/slices/cartSlice';
 
 import EmptyCart from "../components/EmptyCart";
-
-import cartIcon from '../assets/img/cart-icon.svg';
 import CartItem from '../components/CartItem';
+import cartIcon from '../assets/img/cart-icon.svg';
 
-const Cart = () => {
-
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { cartProducts, totalPrice, totalCount } = useSelector(selectCart);
 
@@ -59,8 +58,6 @@ const Cart = () => {
         </div>
       </div >
     </>
-
-
   )
 }
 
