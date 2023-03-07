@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSortChecked } from '../redux/slices/filterSlice';
-
+import { setSortChecked, SortType } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 import sortIcon from './../assets/img/sort-icon.svg';
 
-export const sortData = [
+const sortData: SortType[] = [
   { name: 'Популярності ↓', forFetch: 'rating' },
   { name: 'Популярності ↑', forFetch: 'rating↑' },
   { name: 'Ціні ↓', forFetch: 'price' },
@@ -13,21 +13,19 @@ export const sortData = [
   { name: 'Алфавіту ↑', forFetch: 'title↑' }
 ];
 
-const Sort = () => {
-
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
-  const sort = useSelector(state => state.filter.sortType);
+  const sort = useSelector((state: RootState) => state.filter.sortType);
   const [openSort, setOpenSort] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       let pathClick = event.composedPath();
 
-      if (!pathClick.includes(sortRef.current)) {
+      if (!pathClick.includes(sortRef.current!)) {
         setOpenSort(false)
       }
-
     };
 
     document.body.addEventListener('click', handleClickOutside)
@@ -38,7 +36,10 @@ const Sort = () => {
   }, []);
 
   return (
-    <div className="sort" ref={sortRef} onClick={() => setOpenSort(!openSort)}>
+    <div
+      className="sort"
+      ref={sortRef}
+      onClick={() => setOpenSort(!openSort)}>
       <div className="sort__label" >
         <img className={openSort ? 'sort__icon__active' : ''} src={sortIcon} />
         <b>Сортувати по:</b>
@@ -59,6 +60,6 @@ const Sort = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Sort;
